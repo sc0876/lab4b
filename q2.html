@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Displaying .json file content</title>
+    </head>
+    <body>
+        <h1>Displaying .json file content</h1>
+        <div id="json-content"></div> <!-- Element to display JSON content -->
+
+        <script>
+            // Fetch the .json file
+            fetch('q1.json')
+                .then(response => response.json())
+                .then(data => {
+                    // Get the container element
+                    const container = document.getElementById('json-content');
+                    
+                    // Iterate through the books and display the content
+                    data.Books.forEach(book => {
+                        const bookElement = document.createElement('div'); // Create a new div for each book
+                        bookElement.innerHTML = `
+                            <h2>${book.title}</h2>
+                            <p><strong>Author:</strong> ${book.author}</p>
+                            <p><strong>Publication Year:</strong> ${book['publication year']}</p>
+                            <p><strong>Genres:</strong> ${book.genres}</p>
+                        `;
+                        container.appendChild(bookElement); // Append the new div to the container
+                    });
+                })
+                .catch(error => console.error('Error loading JSON:', error));
+        </script>
+    </body>
+</html>
